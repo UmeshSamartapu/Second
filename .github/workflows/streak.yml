@@ -1,0 +1,22 @@
+name: Streak Maintainer
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours at 00 minutes
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Update Streak
+      run: |
+        chmod +x update_streak.sh
+        ./update_streak.sh
+
+    - uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
