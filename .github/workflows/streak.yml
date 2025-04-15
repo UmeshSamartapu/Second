@@ -18,7 +18,9 @@ jobs:
           chmod +x update_streak.sh
           ./update_streak.sh
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "Streak update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          file_pattern: "streak.log"
+          add: true  # Ensure files are added to git before committing
